@@ -44,6 +44,7 @@
                         &euro; @ViewBag.total
                     </div>
                 </div>
+                <div id="paypal-btn"></div>
                 <a class="btn" asp-controller="cart"  asp-action="CheckOut">Checkout</a>
             </div>
         </div>
@@ -55,4 +56,46 @@ else
     <h2 class="text-center mt-5" style="padding-top:200px;">No Items in your cart!</h2>
     <a asp-controller="Home" asp-action="index">&leftarrow;Continue shopping?</a>
     </div>
+}
+
+@section Scripts{
+
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+    <script>
+        let _total = @ViewBag.total;
+        paypal.Button.render({
+            //Configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: 'AUvYZEhKqtfXHEchnKY12B7hI0Ciiv9wUKe4R1DBaLH1c-Z1p7XcGrv1p7LnfezglxL5KPUZqBjkt6Rw'
+            },
+            //Customize button
+            locale: 'en_US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill'
+            },
+            commit: true,
+            //Set up a payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: _total,
+                            currency: 'USD'
+                        }
+                    }]
+                });
+            },
+            //Execute the payment
+            onApprove: function (data, actions) {
+                return actions.payment.execute().then(function () {
+                    var url = '/cart/checkout';
+                    window.location.href = url;
+                });
+            }
+        }, '#paypal-btn')
+    </script>
 }
