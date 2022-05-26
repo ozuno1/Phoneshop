@@ -25,7 +25,13 @@
                    <li><span class="nav-link text-light"> <a asp-action="About" asp-controller="Home">About</a></span></li>
                    <li><span class="nav-link text-light"> <a asp-action="Contact" asp-controller="Home">Contact</a></span></li>
                    <li><span class="nav-link text-light"> <a asp-action="Index" asp-controller="Blogs">Blogs</a></span></li>
-            </ul>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li><span class="nav-link text-light"> <a asp-action="Index" asp-controller="Admin">Admin Panel</a></span></li>
+                        <li><span class="nav-link text-light"> <a asp-action="Index" asp-controller="Role">Role</a></span></li>
+                        
+                    }
+                </ul>
             <ul class="navbar-nav ml-auto nav-items">
                <partial name="_LoginPartial" />
             </ul>
