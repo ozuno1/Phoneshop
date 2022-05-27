@@ -9,7 +9,7 @@
     IEnumerable<ProductCategory> productCategories = ViewData["categories"] as IEnumerable<ProductCategory>;
 }
 
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" >
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img class="d-block w-100" src="~/images/carousel1.png" alt="First slide">
@@ -57,7 +57,7 @@
                             <p class="card-text text-right price font-weight-bold">Price : &euro; @item.Price</p>
                             <div class="text-right ml-auto">
                                   <a asp-controller="cart" asp-action="buy" asp-route-id="@item.Id"><i class="fa fa-shopping-cart"></i></a>
-                                @if (User.IsInRole("Admin"))
+                                @if (User.IsInRole("Administrator"))
                                 {
                                     <a class="del-btn" id="@item.Id"><i class="far fa-trash-alt"></i></a>
                                 }
