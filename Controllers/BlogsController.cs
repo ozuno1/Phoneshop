@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Blogs/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -58,6 +60,7 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create(Blog blog)
         {
             if (ModelState.IsValid)
@@ -79,6 +82,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Blogs/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Blogs == null)
@@ -99,6 +103,7 @@ namespace WebApplication1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id,Blog blog)
         {
             if (id != blog.Id)
@@ -139,6 +144,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Blogs/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Blogs == null)
@@ -159,6 +165,7 @@ namespace WebApplication1.Controllers
         // POST: Blogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Blogs == null)

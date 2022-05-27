@@ -49,6 +49,11 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="cart" asp-action="buy" asp-route-id="@Model.Id"><i class="fa fa-shopping-cart"></i>Add to Cart  |</a> 
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit |</a> 
+    @if (User.IsInRole("Administrator"))
+                                {
+                                    <a class="del-btn" id="@Model.Id"><i class="far fa-trash-alt"></i> Delete |</a> 
+                                }
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
 </div>
